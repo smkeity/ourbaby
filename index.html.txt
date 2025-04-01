@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赤ちゃんの性別が分かりました！</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url('baby2.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.6);
+            z-index: -1;
+        }
+
+        /* タイトルのフォントサイズを小さく */
+        h1 {
+            font-size: 24px;  /* 例: 少し小さく */
+        }
+        
+        p {
+            font-size: 20px;  /* 例: 少し大きく */
+            font-weight: bold; /* 文字を少し太くする */
+        }
+        
+        #babyImage, #babyVideo, #midiText {
+            display: block;
+            margin: auto;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        #babyVideo {
+            clip-path: inset(0 0 100% 0); /* 上からスライド表示 */
+            transition: clip-path 2s ease-out, opacity 2s ease-out;
+        }
+
+        /* 画像の下のテキストを大きく */
+        #resultText {
+            opacity: 0;
+            font-size: 20px;  /* 例: 少し大きく */
+            font-weight: bold; /* 文字を少し太くする */
+            transition: opacity 2s ease-in;
+            margin-top: 10px;
+        }
+
+        /*バルーン画像の初期位置（画面の下） */
+        #balloon {
+            display: block;
+            margin: auto;
+            width: 100px;
+            opacity: 0;
+            position: absolute;
+            bottom: -50px; /* 初めは画面の外に */
+            left: 10%;  /* 画面の左寄り（右にしたい場合は right: 20%） */
+            transition: opacity 1s ease-in, transform 10s ease-out;
+        }
+        /* バルーン画像の初期位置（画面の下） */
+        #balloontwo {
+            display: block;
+            margin: auto;
+            width: 50px;
+            opacity: 0;
+            position: absolute;
+            bottom: 10px; /* 初めは画面の外に */
+            right: 10%;  /* 画面の左寄り（右にしたい場合は right: 20%） */
+            transition: opacity 1s ease-in, transform 10s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>赤ちゃんの性別が分かりました！</h1>
+    <p>BOY？ or GIRL？</p>
+    <p>どっちかな？</p>
+    <button onclick="showSequence()">性別を確認する</button>
+    <img id="babyImage" src="babyfinal.jpg" alt="赤ちゃんの画像" width="200">
+    <p id="midiText">これは女の子かな？・・・</p>
+    <video id="babyVideo" width="300" muted loop autoplay playsinline>
+        <source src="https://github.com/smkeity/Baby/raw/refs/heads/main/babyf.MP4" type="video/mp4">
+        お使いのブラウザは動画タグをサポートしていません。
+    </video>
+    <p id="resultText">男の子でした！</p>
+    
+    
+    
+    <img id="balloon" src="balloon3.png" alt="バルーンの画像"> <!-- バルーン画像 -->
+    <img id="balloontwo" src="balloon4.png" alt="バルーンの画像"> <!-- バルーン画像 -->       
+           
+    <script>
+        
+        function showSequence() {
+            let babyImage = document.getElementById("babyImage");
+            let text = document.getElementById("midiText");
+            let video = document.getElementById("babyVideo");
+            let texttwo = document.getElementById("resultText");
+            let balloon = document.getElementById("balloon");
+            let balloontwo = document.getElementById("balloontwo");
+
+            babyImage.style.opacity = "1";
+            text.style.opacity = "1";
+            
+            setTimeout(() => {
+                babyImage.style.opacity = "0";
+                text.style.opacity = "0";
+                
+                setTimeout(() => {
+                    video.style.opacity = "1";
+                    video.style.clipPath = "inset(0 0 0 0)";
+                    video.play();
+                    
+                    setTimeout(() => {
+                        texttwo.style.opacity = "1";
+                        
+                        setTimeout(() => {
+                            balloon.style.opacity = "1";
+                            balloon.style.transform = "translateY(-200px)";
+                            balloontwo.style.opacity = "1";
+                            balloontwo.style.transform = "translateY(-200px)";
+                            
+                            setTimeout(() => {
+                                balloon.style.opacity = "0";
+                                balloon.style.transform = "translateY(-100px)";
+                                balloontwo.style.opacity = "0";
+                                balloontwo.style.transform = "translateY(-100px)";
+                            }, 2000);
+                        }, 500);
+                    }, 5000);
+                }, 1000);
+            }, 4000);
+        }
+    </script>
+
+</body>
+</html>
